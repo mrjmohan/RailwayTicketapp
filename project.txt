@@ -1,0 +1,241 @@
+from tkinter import *
+from tkinter.font import Font
+from tkinter import ttk
+from tkinter import messagebox
+from PIL import ImageTk,Image
+#from tkcalendar import DateEntry
+
+
+class TrainTicketbook():
+    #------------------------------------------------------------------------#
+    def __init__(self):
+        self.root=Tk()
+        self.root.title("Railway Reservarion System")
+        self.root.geometry("1920x1080")
+        self.Tops=Frame(self.root,width=1350,height=110,border=10,bg='white')#headframe
+        self.Tops.pack()
+        self.root.configure(background='black')
+        #-------------------  Frames -----------------------------------#
+        self.midfr= Frame(self.root, width=500, height=180,border=10,bg='grey')  #customerframe
+        self.midfr.pack(fill=X)
+        self.bf= Frame(self.root, width=1350, height=460,bg='maroon')#trip frame
+        self.bf.pack(fill=X)
+
+        # ----------------- Labels and buttons inside frames-------------------------#
+
+        self.lab1 = Label(self.Tops, text="Railway Reservarion System", font=("Lato", 50, 'bold'), bg="red")
+        self.lab1.pack(side=TOP)
+
+        # ----------------------------Customer Details------------------------------
+
+        self.cuslab = Label(self.midfr, text='Customer Details', font=('Lato', 30, "bold"), anchor='center', bg='orange',border=5, highlightthickness=3, highlightcolor='black')
+        self.cuslab.grid(row=0, columnspan=30, padx=30, pady=10)
+        self.namelab = Label(self.midfr, text='Name', font=('Arial', 16, "bold"))
+        self.namelab.grid(row=1, column=0, padx=30, pady=10)
+        self.maillab = Label(self.midfr, text='E-mail ID', font=('Arial', 16, "bold"))
+        self.maillab.grid(row=2, column=0, padx=30, pady=10)
+        self.phonelab = Label(self.midfr, text='Mobile No', font=('Arial', 16, "bold"))
+        self.phonelab.grid(row=1, column=2, padx=30, pady=10)
+        self.aalab = Label(self.midfr, text='Booking Date ', font=('Arial', 16, "bold"))
+        self.aalab.grid(row=2, column=2, padx=30, pady=10)
+        self.enname = Entry(self.midfr, width=30, font=("Arial", 14, "bold"))
+        self.enname.grid(row=1, column=1, padx=30, pady=10)
+        self.enmail = Entry(self.midfr, width=30, font=("Arial", 14, "bold"))
+        self.enmail.grid(row=2, column=1, padx=30, pady=10)
+        self.enphone = Entry(self.midfr, width=30, font=("Arial", 14, "bold"))
+        self.enphone.grid(row=1, column=3, padx=30, pady=10)
+        #self.enaa = DateEntry(self.midfr, width=30, selectmode='day',day=1,month=1,year=2023)
+        #self.enaa.grid(row=2, column=3, padx=30, pady=10)
+
+        # -------------------------Trip details-----------------------------------------------------
+
+        self.triplab = Label(self.bf, text='Trip Details', font=('Lato', 20, 'bold'), anchor='center', bg='orange',border=5, highlightthickness=3, highlightcolor='skyblue')
+        self.triplab.grid(row=0, column=2, padx=5, pady=15)
+        self.classlab = Label(self.bf, text='Class:', font=('Arial', 14, 'bold'), anchor='e')
+        self.classlab.grid(row=1, column=0, padx=5, pady=5)
+        self.ticlab = Label(self.bf, text='Ticket Type:', font=('Arial', 14, 'bold'), anchor='w')
+        self.ticlab.grid(row=2, column=0, padx=5, pady=5)
+        self.fromlab = Label(self.bf, text='From:', font=('Arial', 14, 'bold'), anchor='w')
+        self.fromlab.grid(row=3, column=0, padx=5, pady=5)
+        self.tolab = Label(self.bf, text='To:', font=('Arial', 14, 'bold'), anchor='w')
+        self.tolab.grid(row=4, column=0, padx=5, pady=5)
+        self.tolab = Label(self.bf, text='Price \n\nStandared\t  ₹100 \nFirstclass\t ₹200 \nSecond Class\t ₹150',bg='orange', font=('Lato', 14, 'bold'), border=5,highlightthickness=3, highlightcolor='skyblue')
+        self.tolab.grid(rowspan=4, column=3,row=2, padx=5, pady=5)
+        self.trainlab = Label(self.bf, text='Train:', font=('Arial', 14, 'bold'), anchor='w')
+        self.trainlab.grid(row=5, column=0, padx=5, pady=5)
+        self.datelab = Label(self.bf, text='Date:', font=('Arial', 14, 'bold'), anchor='w')
+        self.datelab.grid(row=6, column=0, padx=5, pady=5)
+        self.noticlab = Label(self.bf, text='No Of Tickets:', font=('Arial', 14, 'bold'), anchor='w')
+        self.noticlab.grid(row=7, column=0, padx=5, pady=5)
+
+        # -------------------------Buttons----------------------------------------------------------------------------------------
+
+        self.class_button = IntVar()
+        self.standbut = Radiobutton(self.bf, text="Standard", font=('Arial', 12, 'bold'), variable=self.class_button,value=100 )
+        self.standbut.grid(row=1, column=1, padx=5, pady=5)
+        self.standbut = Radiobutton(self.bf, text="First Class", font=('Arial', 12, 'bold'),variable=self.class_button, value=200)
+        self.standbut.grid(row=1, column=2, padx=5, pady=5)
+        self.standbut = Radiobutton(self.bf, text="Second Class", font=('Arial', 12, 'bold'),variable=self.class_button, value=150)
+        self.standbut.grid(row=1, column=3, padx=5, pady=5)
+        self.ticket_button = IntVar()
+        self.singlebut = Radiobutton(self.bf, text="Single", font=('Arial', 12, 'bold'), variable=self.ticket_button,value=1, )
+        self.singlebut.grid(row=2, column=1, padx=5, pady=5)
+        self.returnbut = Radiobutton(self.bf, text="Return", font=('Arial', 12, 'bold'), variable=self.ticket_button,value=2, )
+        self.returnbut.grid(row=2, column=2, padx=5, pady=5)
+
+        # -----------------------------comobo box------------------------------------------------------
+
+        self.fromcom = ttk.Combobox(self.bf, width=15, font=('Arial', 12, 'bold'))
+        self.fromcom['values'] = ('TPJ- Tirchirappalli', 'MD- Madurai', 'TJ -Thanjavur', 'KR -Karur')
+        self.fromcom.grid(row=3, column=1, pady=5, padx=5)
+        self.tocom = ttk.Combobox(self.bf, width=15, font=('Arial', 12, 'bold'))
+        self.tocom['values'] = ('TBM -Tambaram', 'BG -Bangalore', 'CD -Cuddalore', 'PY -Pondycherry')
+        self.tocom.grid(row=4, column=1, pady=5, padx=5)
+        self.traincom = ttk.Combobox(self.bf, width=15, font=('Arial', 12, 'bold'))
+        self.traincom['values'] = ('12345 -Vaigai Superfast Express', '16061 -Mangalore Express', '12023 -Guruvaiyur Express','12769 -Tejas Superfast Express')
+        self.traincom.grid(row=5, column=1, pady=5)
+        self.calbut = ttk.Combobox(self.bf, width=5, font=('Arial', 12, 'bold'))
+        self.calbut['values'] = ('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20','21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31')
+        self.calbut.grid(row=6, column=1,)
+        self.monbut = ttk.Combobox(self.bf, width=5, font=('Arial', 12, 'bold'))
+        self.monbut['values'] = ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
+        self.monbut.grid(row=6, column=2, pady=5)
+        self.yearbut = ttk.Combobox(self.bf, width=5, font=('Arial', 12, 'bold'))
+        self.yearbut['values'] = ('2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030')
+        self.yearbut.grid(row=6, column=3, pady=5)
+        self.noticen = Entry(self.bf, width=15, font=('Arial', 12, 'bold'))
+        self.noticen.grid(row=7, column=1, pady=5)
+        #--------------------------------Fare Details-----------------------------------------------------------------------------
+
+        self.Farelab = Label(self.bf, text='Fare Deatails', font=('lato', 20, 'bold'), anchor='center', bg="orange",border=5, highlightthickness=3, highlightcolor='skyblue')
+        self.Farelab.grid(row=0, column=7, pady=10)
+        self.Totalbut = Button(self.bf, text='Total', font=('Arial', 16, 'bold'), command=self.Total,activebackground="grey")
+        self.Totalbut.grid(row=2, column=6, padx=9, pady=9)
+        self.Totent = Entry(self.bf, width=15, font=("Arial", 14, "bold"))
+        self.Totent.grid(row=2, column=7, padx=9, pady=5)
+        self.exitbut = Button(self.bf, text='Exit', font=('Arial', 16, 'bold'), command=self.root.destroy,activeforeground='red')
+        self.exitbut.grid(row=6, column=8, padx=9, )
+        self.clearbut = Button(self.bf, text='Clear', font=('Arial', 16, 'bold'), command=self.clearentry)
+        self.clearbut.grid(row=3, column=8, padx=9, pady=5)
+        self.recbut = Button(self.bf, text='Ticket Recipt', font=('Arial', 16, 'bold'), command=self.ticrecipt)
+        self.recbut.grid(row=6, column=6, padx=9, pady=5)
+        self.conbut = Button(self.bf, text='Concession', font=('Arial', 16, 'bold'), command=self.concession,activebackground='white')
+        self.conbut.grid(row=3, column=6, padx=9)
+        self.Conent = Entry(self.bf, width=15, font=("Arial", 14, "bold"))
+        self.Conent.grid(row=3, column=7, pady=9)
+        self.root.mainloop()
+
+    def concession(self):
+        self.check = Toplevel()
+        self.check.title('No of Ticket Checking')
+        self.check.config(background='skyblue')
+        self.check.geometry('300x400')
+        self.fream = Frame(self.check, width=500, height=200, bg='red')
+        self.fream.pack(fill=Y)
+        self.fream1 = Frame(self.check, width=500, height=200, bg='purple')
+        self.fream1.pack(fill=Y)
+        self.s0 = Label(self.fream, text=' Concession Chart ', font=('Arial', 18, 'bold'), bg='yellow',anchor='center')
+        self.s0.grid(row=0,columnspan=5)
+        self.s1 = Label(self.fream, text='Ex-service man\t: 40%', font=('Arial', 14, 'bold'), bg='red')
+        self.s1.grid(row=1,column=0)
+        self.s2 = Label(self.fream, text='First Citizen\t: 50%', font=('Arial', 14, 'bold'), bg='red')
+        self.s2.grid(row=2,column=0)
+        self.s3 = Label(self.fream, text='Railway Employee\t: 100%', font=('Arial', 14, 'bold'), bg='red')
+        self.s3.grid(row=3,column=0)
+        self.s4 = Label(self.fream, text='PWD\t\t: 25%', font=('Arial', 14, 'bold'), bg='red')
+        self.s4.grid(row=4,column=0)
+        self.s5 = Label(self.fream, text='Child\t\t: 50%', font=('Arial', 14, 'bold'), bg='red')
+        self.s5.grid(row=5,column=0)
+        self.senilab = Label(self.fream1, text='Senior Citizen:', font=('Arial', 14, 'bold'))
+        self.senilab.grid(row=1, column=0, padx=5, pady=5)
+        self.xlab = Label(self.fream1, text='Ex-service man', font=('Arial', 14, 'bold'))
+        self.xlab.grid(row=0, column=0, padx=5, pady=5)
+        self.senien = Entry(self.fream1, width=10, font=('Arial', 12, 'bold'))
+        self.senien.insert(0, '0')
+        self.senien.grid(row=0, column=1, pady=5, padx=5)
+        self.xen = Entry(self.fream1, width=10, font=('Arial', 12, 'bold'))
+        self.xen.insert(0, '0')
+        self.xen.grid(row=1, column=1, pady=5, padx=5)
+        self.pwdlab = Label(self.fream1, text='PWD:', font=('Arial', 14, 'bold'))
+        self.pwdlab.grid(row=2, column=0, padx=5, pady=5)
+        self.emplab = Label(self.fream1, text='Railway Employee:', font=('Arial', 14, 'bold'))
+        self.emplab.grid(row=3, column=0, padx=5, pady=5)
+        self.pwden = Entry(self.fream1, width=10, font=('Arial', 12, 'bold'))
+        self.pwden.insert(0, '0')
+        self.pwden.grid(row=2, column=1, pady=5, padx=5)
+        self.empen = Entry(self.fream1, width=10, font=('Arial', 12, 'bold'))
+        self.empen.insert(0, '0')
+        self.empen.grid(row=3, column=1, pady=5, padx=5)
+        self.chidlab = Label(self.fream1, text='Below 5 years :', font=('Arial', 14, 'bold'))
+        self.chidlab.grid(row=4, column=0, padx=5, pady=5)
+        self.childen = Entry(self.fream1, width=10, font=('Arial', 12, 'bold'))
+        self.childen.insert(0, '0')
+        self.childen.grid(row=4, column=1, pady=5, padx=5)
+        self.check1 = Button(self.fream1, text='Submit', font=('Arial', 12, 'bold'), justify='center', relief=RAISED,command=self.submit)
+        self.check1.grid(row=5, columnspan=4, pady=10, padx=5)
+
+
+    def clearentry(self):
+        self.Totent.delete("0", END)
+        self.Conent.delete("0", END)
+
+    def Total(self):
+        self.notic = int(self.noticen.get())
+        self.data = self.class_button.get()
+        self.data1 = self.ticket_button.get() * self.data
+        self.val = float(self.notic * self.data1)
+        self.Totent.delete(0, END)
+        self.Totent.insert(0, str(self.val))
+
+    def submit(self):
+        self.notic = int(self.noticen.get())
+        self.data1 = int(self.class_button.get())
+        self.data2 = int(self.ticket_button.get())
+        self.data3 = self.data1 * self.data2
+        self.val = float(self.notic * self.data1)
+        self.seni = int(self.senien.get())
+        self.x = int(self.xen.get())
+        self.rail = int(self.empen.get())
+        self.pwd = int(self.pwden.get())
+        self.child = int(self.childen.get())
+        self.contotal = int((self.seni) + (self.x) + (self.pwd) + (self.child)) + (self.rail)
+        self.seni1 = (self.seni) * (self.data3) * (0.50)
+        self.x1 = (self.x) * (self.data3) * (0.40)
+        self.rail1 = (self.rail) * (self.data3) * (0)
+        self.pwd1 = (self.pwd) * (self.data3) * (0.25)
+        self.child1 = (self.child) * (self.data3) * (0.50)
+        self.contotal1 = (self.seni1 + self.x1 + self.rail1 + self.pwd1 + self.child1)
+        self.n1 = int(self.noticen.get())
+        if self.contotal == self.n1:
+            self.Conent.delete(0, END)
+            self.Conent.insert(0, str(self.contotal1))
+            self.check.destroy()
+        else:
+            messagebox.showwarning('Information', 'Details Entered correctly')
+
+    def ticrecipt(self):
+        self.master = Toplevel(self.root)
+        self.master.title('Railway Ticket')
+        self.master.geometry('1920x1080')
+        self.ticarea = Text(self.master, width=100, height=20, bg='pink')
+        self.ticarea.grid(row=2, column=2)
+        self.ticarea.delete('1.0', END)
+        self.ticarea.insert(END,'\n----------------------------------------------------------------------------------------------------')
+        self.ticarea.insert(END, '\n \t\t\t\t\tTRAIN TICKET')
+        self.ticarea.insert(END,'\n----------------------------------------------------------------------------------------------------')
+        self.ticarea.insert(END, '\n\t Name \t\t\t\tTrain Name ')
+        self.ticarea.insert(END, '\n\t ' + str(self.enname.get()) + '\t\t\t\t' + str(self.traincom.get()))
+        self.ticarea.insert(END, '\n\t Mobile No \t\t\t\tFrom ')
+        self.ticarea.insert(END, '\n\t ' + str(self.enphone.get()) + '\t\t\t\t' + str(self.fromcom.get()))
+        self.ticarea.insert(END, '\n\t Email-Id \t\t\t\tTo ')
+        self.ticarea.insert(END, '\n\t ' + str(self.enmail.get()) + '\t\t\t\t' + str(self.tocom.get()))
+        self.ticarea.insert(END, '\n\t Date \t\t\t\tNo of Tickets ')
+        self.ticarea.insert(END, '\n\t ' + str(self.calbut.get()) + str(self.monbut.get()) + '\t\t\t\t' + str(self.noticen.get()))
+        self.ticarea.insert(END, '\n\t Total Price \t\t\t\tConcession Amount')
+        self.ticarea.insert(END, '\n\t'+ str(self.Totent.get()) + '\t\t\t\t ' + str(self.Conent.get()))
+        self.ticarea.insert(END,'\n----------------------------------------------------------------------------------------------------')
+        self.ticarea.insert(END,'\n--------------------------------------              ------------------------------------------------')
+        self.ticarea.insert(END,'\n                                       Happy Journey                                                 ')
+        self.ticarea.insert(END,'\n--------------------------------------              ------------------------------------------------')
+        self.ticarea.insert(END,'\n----------------------------------------------------------------------------------------------------')
+ob = TrainTicketbook()
